@@ -81,3 +81,22 @@ class BookingAPITestCase(TestCase):
     def test_api_endpoint_index(self):
         response = self.client.get('/api/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_booking_detail_get_and_delete(self):
+        booking = Booking.objects.create(
+            name="John Doe",
+            phone="+45 80 12 34 56",
+            room="Deluxe Lakeview Suite",
+            check_in=self.tomorrow,
+            check_out=self.day_after,
+            guests=2
+        )
+        # Test GET detail
+        get_res = self.client.get(f'/api/bookings/{booking.id}/')
+        self.assertEqual(get_res.status_code, status.HTTP_200_OK)
+        self.assertEqual(get_res.data["booking"]["name"], "John Doe")
+
+        # Test DELETE detail
+        del_res = self.client.delete(f'/api/bookings/{booking.id}/')
+        self.assertEqual(del_res.status_code, status.HTTP_200_OK)
+        self.assertEqual(Booking.objects.filter(id=booking.id).count(), 0)

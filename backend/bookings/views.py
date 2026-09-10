@@ -90,3 +90,49 @@ class BookingListCreateAPIView(APIView):
 class RoomListAPIView(APIView):
     def get(self, request):
         return Response({"rooms": ROOM_CATALOG, "offered_names": OFFERED_ROOMS}, status=status.HTTP_200_OK)
+
+class BookingDetailAPIView(APIView):
+    def get_object(self, pk):
+        try:
+            return Booking.objects.get(pk=pk)
+        except Booking.DoesNotExist:
+            return None
+
+    def get(self, request, pk):
+        booking = self.get_object(pk)
+        if not booking:
+            return Response(
+                {"error": f"Booking with ID #{pk} not found in database."},
+                status=status.HTTP_404_NOT_FOUND
+            )
+        serializer = BookingSerializer(booking)
+        return Response({"booking": serializer.data}, status=status.HTTP_200_OK)
+
+    def put(self, request, pk):
+        booking = self.get_object(pk)
+        if not booking:
+            return Response(
+                {"error": f"Booking with ID #{pk} not found in database."},
+                status=status.HTTP_404_NOT_FOUND
+            )
+        serializer = BookingSerializer(booking, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(
+                {"message": "Booking updated successfully.", "booking": serializer.data},
+                status=status.HTTP_200_OK
+            )
+        return Response({"errors": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk):
+        booking = self.get_object(pk)
+        if not booking:
+            return Response(
+                {"error": f"Booking with ID #{pk} not found in database."},
+                status=status.HTTP_404_NOT_FOUND
+            )
+        booking.delete()
+        return Response(
+            {"message": f"Booking #{pk} has been cancelled and deleted."},
+            status=status.HTTP_200_OK
+        )

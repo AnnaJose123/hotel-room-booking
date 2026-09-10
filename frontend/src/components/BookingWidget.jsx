@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Calendar, Users, Home, User, Phone, CheckCircle, AlertCircle, Loader2, Sparkles, X, Printer } from 'lucide-react';
+import { Calendar, Users, Home, User, Phone, CheckCircle, AlertCircle, Loader2, Sparkles, X, Printer, PackageCheck, Check } from 'lucide-react';
 
 const OFFERED_ROOMS = [
   'Nordic Standard Suite',
@@ -10,10 +10,17 @@ const OFFERED_ROOMS = [
   'Royal Penthouse Suite'
 ];
 
-export default function BookingWidget({ prefilledRoom, onResetPrefill }) {
+export default function BookingWidget({ prefilledRoom, selectedPackage, onResetPackage }) {
   const getTomorrowStr = (addDays = 1) => {
     const d = new Date();
     d.setDate(d.getDate() + addDays);
+    return d.toISOString().split('T')[0];
+  };
+
+  const calculateCheckOut = (checkInStr, nights = 2) => {
+    if (!checkInStr) return getTomorrowStr(nights + 1);
+    const d = new Date(checkInStr);
+    d.setDate(d.getDate() + nights);
     return d.toISOString().split('T')[0];
   };
 
@@ -31,14 +38,33 @@ export default function BookingWidget({ prefilledRoom, onResetPrefill }) {
   const [serverError, setServerError] = useState('');
   const [successData, setSuccessData] = useState(null);
 
+  // Synchronize room pre-fill and package selection
   useEffect(() => {
-    if (prefilledRoom && OFFERED_ROOMS.includes(prefilledRoom)) {
+    if (selectedPackage) {
+      const room = selectedPackage.roomPrefill || OFFERED_ROOMS[1];
+      const checkIn = formData.check_in || getTomorrowStr(1);
+      const checkOut = calculateCheckOut(checkIn, selectedPackage.nights || 3);
+      setFormData((prev) => ({
+        ...prev,
+        room: room,
+        check_in: checkIn,
+        check_out: checkOut
+      }));
+    } else if (prefilledRoom && OFFERED_ROOMS.includes(prefilledRoom)) {
       setFormData((prev) => ({ ...prev, room: prefilledRoom }));
     }
-  }, [prefilledRoom]);
+  }, [selectedPackage, prefilledRoom]);
 
   const handleChange = (field, value) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
+    setFormData((prev) => {
+      const updated = { ...prev, [field]: value };
+      // Auto-recalculate check-out date if package is selected and check-in date changes
+      if (field === 'check_in' && selectedPackage) {
+        updated.check_out = calculateCheckOut(value, selectedPackage.nights || 3);
+      }
+      return updated;
+    });
+
     if (errors[field]) {
       setErrors((prev) => {
         const newErrs = { ...prev };
@@ -102,7 +128,6 @@ export default function BookingWidget({ prefilledRoom, onResetPrefill }) {
     try {
       const response = await axios.post('http://127.0.0.1:8000/api/bookings/', formData);
       setSuccessData(response.data);
-      if (onResetPrefill) onResetPrefill();
     } catch (err) {
       console.error('Booking submission error:', err);
       if (err.response && err.response.data && err.response.data.errors) {
@@ -118,6 +143,7 @@ export default function BookingWidget({ prefilledRoom, onResetPrefill }) {
 
   const closeSuccessModal = () => {
     setSuccessData(null);
+    if (onResetPackage) onResetPackage();
     setFormData({
       name: '',
       phone: '',
@@ -130,24 +156,69 @@ export default function BookingWidget({ prefilledRoom, onResetPrefill }) {
 
   return (
     <section id="booking" className="py-16 sm:py-24 px-4 sm:px-6 bg-[#F7F5F0] relative">
-      <div className="max-w-[1200px] mx-auto">
+      <div className="max-w-[1200px] mx-auto space-y-8">
+        
         {/* Section Heading */}
-        <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-12 space-y-2 sm:space-y-3">
+        <div className="text-center max-w-2xl mx-auto space-y-2 sm:space-y-3">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#7A8A6F]/10 text-[#7A8A6F] text-[11px] sm:text-xs uppercase tracking-[0.2em] font-semibold">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>Instant Reservation</span>
+            <span>Instant Reservation Engine</span>
           </div>
           <h2 className="font-serif-luxury text-3xl sm:text-5xl font-normal text-[#2C2C28]">
             Reserve Your Sanctuary
           </h2>
           <p className="text-xs sm:text-sm text-[#2C2C28]/70 font-light leading-relaxed px-2">
-            Select your preferred dates and luxury suite. Connected directly to our real-time Django reservation engine.
+            Connected directly to our real-time Django reservation database.
           </p>
         </div>
 
+        {/* Selected Package Summary Banner (If active) */}
+        {selectedPackage && (
+          <div className="bg-white rounded-3xl border border-[#9C7A50]/40 p-6 shadow-xl relative overflow-hidden animate-fade-in">
+            <div className="absolute top-0 left-0 right-0 h-1 bg-[#9C7A50]" />
+            <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+              
+              <div className="space-y-2 max-w-xl">
+                <div className="flex items-center gap-2">
+                  <PackageCheck className="w-5 h-5 text-[#9C7A50]" />
+                  <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#9C7A50]">
+                    Selected Package Included
+                  </span>
+                  <span className="text-xs bg-[#5E6B4F] text-white font-mono px-2.5 py-0.5 rounded-full font-semibold">
+                    {selectedPackage.price}
+                  </span>
+                </div>
+                <h3 className="font-serif-luxury text-2xl text-[#211F1A]">
+                  {selectedPackage.title}
+                </h3>
+                <p className="text-xs text-[#6B6A62] font-light leading-relaxed">
+                  {selectedPackage.subtitle} • Includes <span className="font-semibold text-[#211F1A]">{selectedPackage.roomPrefill}</span>
+                </p>
+                <div className="flex flex-wrap gap-2 pt-1">
+                  {selectedPackage.inclusions.slice(0, 3).map((inc, i) => (
+                    <span key={i} className="inline-flex items-center gap-1 bg-[#F6F3EC] text-[11px] text-[#211F1A]/80 px-2.5 py-1 rounded-full border border-[#E4DFD2]">
+                      <Check className="w-3 h-3 text-[#5E6B4F]" />
+                      {inc}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <button
+                onClick={onResetPackage}
+                className="bg-[#F6F3EC] hover:bg-rose-50 text-[#211F1A] hover:text-rose-700 text-xs font-semibold uppercase tracking-wider px-5 py-2.5 rounded-full border border-[#E4DFD2] hover:border-rose-200 transition-colors flex items-center gap-1.5 self-start md:self-auto shrink-0"
+              >
+                <X className="w-3.5 h-3.5" />
+                <span>Clear Package</span>
+              </button>
+
+            </div>
+          </div>
+        )}
+
         {/* Server Error Toast Banner */}
         {serverError && (
-          <div className="mb-6 p-4 bg-rose-50 border border-rose-200 text-rose-800 rounded-2xl flex items-start gap-3 text-xs sm:text-sm shadow-sm animate-fade-in">
+          <div className="p-4 bg-rose-50 border border-rose-200 text-rose-800 rounded-2xl flex items-start gap-3 text-xs sm:text-sm shadow-sm animate-fade-in">
             <AlertCircle className="w-5 h-5 text-rose-600 shrink-0 mt-0.5" />
             <div className="flex-1">
               <p className="font-medium">Reservation Notice</p>
@@ -156,7 +227,7 @@ export default function BookingWidget({ prefilledRoom, onResetPrefill }) {
           </div>
         )}
 
-        {/* Responsive Booking Form Container */}
+        {/* Booking Form Container */}
         <div className="bg-white rounded-2xl sm:rounded-3xl border border-[#E6E1D8] shadow-xl p-5 sm:p-10 relative overflow-hidden">
           <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#7A8A6F] via-[#A9825E] to-[#7A8A6F]" />
 
@@ -368,7 +439,7 @@ export default function BookingWidget({ prefilledRoom, onResetPrefill }) {
         </div>
       </div>
 
-      {/* Responsive Confirmation Modal */}
+      {/* Confirmation Modal UI */}
       {successData && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-fade-in">
           <div className="bg-white rounded-3xl border border-[#E6E1D8] max-w-lg w-full p-6 sm:p-8 shadow-2xl relative overflow-hidden space-y-5 animate-scale-up max-h-[90vh] overflow-y-auto">
@@ -396,6 +467,12 @@ export default function BookingWidget({ prefilledRoom, onResetPrefill }) {
 
             {/* Details Summary */}
             <div className="bg-[#F7F5F0] rounded-2xl p-4 sm:p-5 border border-[#E6E1D8] space-y-2.5 text-xs">
+              {selectedPackage && (
+                <div className="flex justify-between border-b border-[#E6E1D8] pb-2 text-[#9C7A50] font-semibold">
+                  <span>Package Included:</span>
+                  <span>{selectedPackage.title} ({selectedPackage.price})</span>
+                </div>
+              )}
               <div className="flex justify-between border-b border-[#E6E1D8] pb-2">
                 <span className="text-[#2C2C28]/60">Guest Name:</span>
                 <span className="font-semibold text-[#2C2C28]">{successData.booking?.name}</span>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Calendar, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { Calendar, ArrowRight, CheckCircle2, Sparkles } from 'lucide-react';
 import RevealTile from './motion/RevealTile';
 import TiltCard from './motion/TiltCard';
 
@@ -8,6 +8,7 @@ const OFFERS = [
     id: 1,
     title: "Nordic Thermal Escape",
     subtitle: "3 Nights • Unlimited Spa Access",
+    nights: 3,
     dates: "Valid Oct 1 – Dec 20, 2026",
     price: "€980",
     savings: "Save 20%",
@@ -24,6 +25,7 @@ const OFFERS = [
     id: 2,
     title: "Romantic Fjord Retreat",
     subtitle: "2 Nights • Private Dining",
+    nights: 2,
     dates: "Valid Year-Round",
     price: "€1,250",
     savings: "Curated Experience",
@@ -40,6 +42,7 @@ const OFFERS = [
     id: 3,
     title: "Wilderness Villa Journey",
     subtitle: "4 Nights • Private Plunge Pool",
+    nights: 4,
     dates: "Valid Sep 15 – Nov 30, 2026",
     price: "€2,800",
     savings: "Exclusive Lodge",
@@ -54,10 +57,10 @@ const OFFERS = [
   }
 ];
 
-export default function OfferCards({ onSelectOfferRoom }) {
-  const handleOfferClick = (roomName) => {
-    if (onSelectOfferRoom) {
-      onSelectOfferRoom(roomName);
+export default function OfferCards({ onSelectOfferPackage }) {
+  const handleOfferClick = (offer) => {
+    if (onSelectOfferPackage) {
+      onSelectOfferPackage(offer);
     }
     const element = document.getElementById('booking');
     if (element) {
@@ -72,7 +75,8 @@ export default function OfferCards({ onSelectOfferRoom }) {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#E4DFD2] pb-8">
           <div className="space-y-3">
-            <span className="text-xs uppercase tracking-[0.25em] text-[#9C7A50] font-semibold">
+            <span className="text-xs uppercase tracking-[0.25em] text-[#9C7A50] font-semibold flex items-center gap-1.5">
+              <Sparkles className="w-3.5 h-3.5 text-[#5E6B4F]" />
               Bespoke Packages
             </span>
             <h2 className="font-serif-luxury text-3xl sm:text-5xl font-normal text-[#211F1A]">
@@ -137,7 +141,7 @@ export default function OfferCards({ onSelectOfferRoom }) {
 
                 <div className="p-7 pt-0">
                   <button
-                    onClick={() => handleOfferClick(offer.roomPrefill)}
+                    onClick={() => handleOfferClick(offer)}
                     data-cursor="Book"
                     className="w-full bg-[#9C7A50] hover:bg-[#85653E] text-white text-xs font-semibold uppercase tracking-wider py-3.5 rounded-xl transition-all duration-300 shadow-md flex items-center justify-center gap-2"
                   >

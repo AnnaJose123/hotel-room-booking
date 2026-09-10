@@ -14,12 +14,22 @@ import Footer from './components/Footer';
 
 export default function App() {
   const [prefilledRoom, setPrefilledRoom] = useState(null);
+  const [selectedPackage, setSelectedPackage] = useState(null);
 
   const handleBookRoom = (roomName) => {
     setPrefilledRoom(roomName);
+    setSelectedPackage(null);
   };
 
-  const handleResetPrefill = () => {
+  const handleSelectPackage = (offer) => {
+    setSelectedPackage(offer);
+    if (offer && offer.roomPrefill) {
+      setPrefilledRoom(offer.roomPrefill);
+    }
+  };
+
+  const handleResetPackage = () => {
+    setSelectedPackage(null);
     setPrefilledRoom(null);
   };
 
@@ -33,10 +43,10 @@ export default function App() {
 
       <div className="min-h-screen bg-[#F6F3EC] text-[#211F1A] font-sans antialiased selection:bg-[#9C7A50] selection:text-white relative">
         {/* Sticky Header & Navigation */}
-        <Header onBookClick={handleResetPrefill} />
+        <Header onBookClick={handleResetPackage} />
 
         {/* Hero Section */}
-        <Hero onBookClick={handleResetPrefill} />
+        <Hero onBookClick={handleResetPackage} />
 
         {/* Tag Pill Row */}
         <PillRow />
@@ -48,10 +58,14 @@ export default function App() {
         <RoomCards onBookRoom={handleBookRoom} />
 
         {/* Interactive Booking Widget Section (Django API Connected) */}
-        <BookingWidget prefilledRoom={prefilledRoom} onResetPrefill={handleResetPrefill} />
+        <BookingWidget
+          prefilledRoom={prefilledRoom}
+          selectedPackage={selectedPackage}
+          onResetPackage={handleResetPackage}
+        />
 
         {/* Bespoke Escape Offers */}
-        <OfferCards onSelectOfferRoom={handleBookRoom} />
+        <OfferCards onSelectOfferPackage={handleSelectPackage} />
 
         {/* Masonry Photo Gallery */}
         <MasonryGallery />
@@ -60,7 +74,7 @@ export default function App() {
         <LocationMap />
 
         {/* Event CTA Banner */}
-        <CtaBanner onBookClick={handleResetPrefill} />
+        <CtaBanner onBookClick={handleResetPackage} />
 
         {/* Footer */}
         <Footer />

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Logo from './Logo';
 import { Phone, Globe, ChevronDown, Menu, X, Calendar, MapPin } from 'lucide-react';
+import { EXPERIENCES_DATA } from '../data/experiencesData';
 
 export default function Header({ onBookClick }) {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -20,6 +21,7 @@ export default function Header({ onBookClick }) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Synchronized Single Source of Truth for Mega Menu
   const megaMenuData = {
     Rooms: [
       { title: "Nordic Standard Suite", desc: "38m² • Forest Balcony", price: "from €240" },
@@ -40,12 +42,11 @@ export default function Header({ onBookClick }) {
       { title: "Lakefront Tea House", desc: "Artisanal afternoon herbal tea" },
       { title: "In-Suite Private Chef", desc: "Bespoke 7-course tasting menu" },
     ],
-    Experiences: [
-      { title: "Fjord Kayaking & Fishing", desc: "Guided eco-adventures" },
-      { title: "Helicopter Glacier Tour", desc: "Aerial views of national parks" },
-      { title: "Foraging & Cooking Class", desc: "Gather wild berries & herbs" },
-      { title: "Stargazing Observatory", desc: "Night sky lectures & hot cider" },
-    ]
+    Experiences: EXPERIENCES_DATA.map((exp) => ({
+      title: exp.title,
+      desc: `${exp.category} • ${exp.shortDesc.slice(0, 48)}...`,
+      id: exp.id
+    }))
   };
 
   const scrollToSection = (id) => {
@@ -126,7 +127,7 @@ export default function Header({ onBookClick }) {
                 onMouseLeave={() => setActiveMegaMenu(null)}
               >
                 <button
-                  onClick={() => scrollToSection(category.toLowerCase())}
+                  onClick={() => scrollToSection(category === 'Experiences' ? 'experiences' : category.toLowerCase())}
                   className={`flex items-center gap-1 py-2 transition-colors ${
                     activeMegaMenu === category ? 'text-[#5E6B4F]' : 'text-[#211F1A] hover:text-[#5E6B4F]'
                   }`}
@@ -137,17 +138,16 @@ export default function Header({ onBookClick }) {
 
                 {/* Dropdown Mega Menu */}
                 {activeMegaMenu === category && (
-                  <div className="absolute top-full left-1/2 -translate-x-1/2 w-80 bg-white border border-[#E4DFD2] rounded-2xl shadow-xl p-4 animate-scale-up z-50">
+                  <div className="absolute top-full left-1/2 -translate-x-1/2 w-84 bg-white border border-[#E4DFD2] rounded-2xl shadow-xl p-4 animate-scale-up z-50">
                     <div className="text-[10px] tracking-[0.2em] uppercase text-[#9C7A50] font-semibold mb-3 border-b border-[#E4DFD2] pb-2">
                       Explore {category}
                     </div>
-                    <div className="space-y-2.5">
+                    <div className="space-y-2.5 max-h-[360px] overflow-y-auto pr-1">
                       {megaMenuData[category].map((item, idx) => (
-                        <a
+                        <button
                           key={idx}
-                          href={`#${category.toLowerCase()}`}
-                          onClick={() => setActiveMegaMenu(null)}
-                          className="block p-2 rounded-xl hover:bg-[#F6F3EC] transition-colors group"
+                          onClick={() => scrollToSection(item.id || category.toLowerCase())}
+                          className="w-full text-left p-2 rounded-xl hover:bg-[#F6F3EC] transition-colors group block"
                         >
                           <div className="flex justify-between items-center text-xs font-semibold text-[#211F1A] group-hover:text-[#5E6B4F]">
                             <span>{item.title}</span>
@@ -158,7 +158,7 @@ export default function Header({ onBookClick }) {
                               {item.desc}
                             </p>
                           )}
-                        </a>
+                        </button>
                       ))}
                     </div>
                   </div>
@@ -187,7 +187,7 @@ export default function Header({ onBookClick }) {
             </button>
           </nav>
 
-          {/* Right CTA & Mobile Toggle */}
+          {/* Right CTA */}
           <div className="flex items-center gap-2.5 sm:gap-4">
             <button
               onClick={() => {
@@ -228,7 +228,7 @@ export default function Header({ onBookClick }) {
                 Suites & Private Villas
               </button>
               <button onClick={() => scrollToSection('experiences')} className="text-left hover:text-[#5E6B4F] transition-colors py-1 border-b border-[#E4DFD2]/40">
-                Wellness & Hydrotherapy Spa
+                The Aura Experience
               </button>
               <button onClick={() => scrollToSection('offers')} className="text-left hover:text-[#5E6B4F] transition-colors py-1 border-b border-[#E4DFD2]/40">
                 Bespoke Escape Offers

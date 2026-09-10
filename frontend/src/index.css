@@ -37,32 +37,74 @@
   background: #7A8A6F;
 }
 
-/* Animations */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
+/* Advanced Luxury Animations */
+@keyframes fadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-@keyframes pulseSlow {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.6; }
+@keyframes scaleUp {
+  0% {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
-.animate-fade-in {
-  animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
 }
 
-.animate-pulse-slow {
-  animation: pulseSlow 3s ease-in-out infinite;
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(122, 138, 111, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 20px 6px rgba(122, 138, 111, 0.25);
+  }
 }
 
-/* Preloader Keyframes */
-@keyframes preloaderScale {
-  0% { transform: scale(0.96); opacity: 0.8; }
-  50% { transform: scale(1.02); opacity: 1; }
-  100% { transform: scale(0.96); opacity: 0.8; }
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
 }
 
-.animate-preloader {
-  animation: preloaderScale 2.5s ease-in-out infinite;
+.animate-fade-up {
+  animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-scale-up {
+  animation: scaleUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-float {
+  animation: floatSlow 4s ease-in-out infinite;
+}
+
+.animate-glow {
+  animation: pulseGlow 3s ease-in-out infinite;
+}
+
+.shimmer-effect {
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 2.5s infinite;
 }

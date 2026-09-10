@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Maximize2, Users, Wifi, Coffee, Check, ArrowRight, X } from 'lucide-react';
+import { Maximize2, Users, Check, ArrowRight, X, Sparkles } from 'lucide-react';
 
 const ROOM_DATA = [
   {
@@ -74,7 +74,8 @@ export default function RoomCards({ onBookRoom }) {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#E6E1D8] pb-8">
           <div className="space-y-3">
-            <span className="text-xs uppercase tracking-[0.25em] text-[#A9825E] font-semibold">
+            <span className="text-xs uppercase tracking-[0.25em] text-[#A9825E] font-semibold flex items-center gap-1.5">
+              <Sparkles className="w-3.5 h-3.5 text-[#7A8A6F]" />
               Accommodations
             </span>
             <h2 className="font-serif-luxury text-3xl sm:text-5xl font-normal text-[#2C2C28]">
@@ -86,12 +87,12 @@ export default function RoomCards({ onBookRoom }) {
           </p>
         </div>
 
-        {/* Horizontally Scrollable Room Container */}
+        {/* Horizontally Scrollable Room Container with Lift Animations */}
         <div className="flex gap-8 overflow-x-auto pb-8 pt-2 scrollbar-thin scroll-smooth snap-x snap-mandatory">
           {ROOM_DATA.map((room, index) => (
             <div
               key={index}
-              className="min-w-[320px] sm:min-w-[400px] lg:min-w-[440px] max-w-[450px] bg-white rounded-3xl border border-[#E6E1D8] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 flex flex-col justify-between snap-start group"
+              className="min-w-[320px] sm:min-w-[400px] lg:min-w-[440px] max-w-[450px] bg-white rounded-3xl border border-[#E6E1D8] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 flex flex-col justify-between snap-start group"
             >
               <div>
                 {/* Room Image Container */}
@@ -99,13 +100,13 @@ export default function RoomCards({ onBookRoom }) {
                   <img
                     src={room.image}
                     alt={room.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
                   />
-                  <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3.5 py-1 rounded-full text-[11px] uppercase tracking-widest text-[#7A8A6F] font-semibold">
+                  <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3.5 py-1 rounded-full text-[11px] uppercase tracking-widest text-[#7A8A6F] font-semibold shadow-sm">
                     {room.category}
                   </div>
-                  <div className="absolute bottom-4 right-4 bg-[#2C2C28]/90 text-white backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-medium tracking-wider">
-                    from <span className="font-mono text-[#A9825E] font-bold text-sm">€{room.price}</span> / night
+                  <div className="absolute bottom-4 right-4 bg-[#2C2C28]/90 text-white backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-medium tracking-wider shadow-md group-hover:bg-[#7A8A6F] transition-colors">
+                    from <span className="font-mono text-[#A9825E] group-hover:text-white font-bold text-sm">€{room.price}</span> / night
                   </div>
                 </div>
 
@@ -134,7 +135,7 @@ export default function RoomCards({ onBookRoom }) {
                   {/* Amenity Highlights */}
                   <div className="flex flex-wrap gap-2 pt-1">
                     {room.amenities.slice(0, 3).map((item, idx) => (
-                      <span key={idx} className="inline-flex items-center gap-1 bg-[#F7F5F0] text-[11px] text-[#2C2C28]/80 px-2.5 py-1 rounded-full border border-[#E6E1D8]">
+                      <span key={idx} className="inline-flex items-center gap-1 bg-[#F7F5F0] text-[11px] text-[#2C2C28]/80 px-2.5 py-1 rounded-full border border-[#E6E1D8] group-hover:border-[#7A8A6F]/40 transition-colors">
                         <Check className="w-3 h-3 text-[#7A8A6F]" />
                         {item}
                       </span>
@@ -147,16 +148,16 @@ export default function RoomCards({ onBookRoom }) {
               <div className="p-7 pt-0 flex items-center gap-3">
                 <button
                   onClick={() => setActiveModalRoom(room)}
-                  className="flex-1 border border-[#E6E1D8] hover:border-[#7A8A6F] text-[#2C2C28] hover:text-[#7A8A6F] text-xs font-semibold uppercase tracking-wider py-3 rounded-xl transition-colors"
+                  className="flex-1 border border-[#E6E1D8] hover:border-[#7A8A6F] text-[#2C2C28] hover:text-[#7A8A6F] text-xs font-semibold uppercase tracking-wider py-3 rounded-xl transition-all duration-300 transform active:scale-95"
                 >
                   Enquire
                 </button>
                 <button
                   onClick={() => handleBookClick(room.name)}
-                  className="flex-1 bg-[#7A8A6F] hover:bg-[#68775D] text-white text-xs font-semibold uppercase tracking-wider py-3 rounded-xl transition-colors shadow-sm flex items-center justify-center gap-1.5"
+                  className="flex-1 bg-[#7A8A6F] hover:bg-[#68775D] text-white text-xs font-semibold uppercase tracking-wider py-3 rounded-xl transition-all duration-300 shadow-sm hover:shadow-md flex items-center justify-center gap-1.5 group/btn transform active:scale-95"
                 >
                   <span>Book Now</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
+                  <ArrowRight className="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform" />
                 </button>
               </div>
             </div>
@@ -164,10 +165,10 @@ export default function RoomCards({ onBookRoom }) {
         </div>
       </div>
 
-      {/* Room Enquire Detail Modal */}
+      {/* Room Enquire Detail Modal with Scale-up Animation */}
       {activeModalRoom && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-fade-in">
-          <div className="bg-white rounded-3xl border border-[#E6E1D8] max-w-2xl w-full overflow-hidden shadow-2xl relative">
+          <div className="bg-white rounded-3xl border border-[#E6E1D8] max-w-2xl w-full overflow-hidden shadow-2xl relative animate-scale-up">
             <button
               onClick={() => setActiveModalRoom(null)}
               className="absolute top-4 right-4 z-10 p-2 bg-white/80 hover:bg-white text-[#2C2C28] rounded-full shadow transition-colors"
@@ -226,7 +227,7 @@ export default function RoomCards({ onBookRoom }) {
                     setActiveModalRoom(null);
                     handleBookClick(rName);
                   }}
-                  className="bg-[#7A8A6F] hover:bg-[#68775D] text-white text-xs font-semibold uppercase tracking-wider px-8 py-3.5 rounded-xl transition-colors shadow-md flex items-center gap-2"
+                  className="bg-[#7A8A6F] hover:bg-[#68775D] text-white text-xs font-semibold uppercase tracking-wider px-8 py-3.5 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg flex items-center gap-2 transform active:scale-95"
                 >
                   <span>Select & Book Suite</span>
                   <ArrowRight className="w-4 h-4" />

@@ -54,11 +54,11 @@ class BookingAPITestCase(TestCase):
         self.assertIn("errors", response.data)
         self.assertIn("phone", response.data["errors"])
 
-    def test_invalid_room_choice(self):
+    def test_empty_room_choice(self):
         payload = {
             "name": "Anna Jose",
             "phone": "+45 80 12 34 56",
-            "room": "Nonexistent Motel Room",
+            "room": "",
             "check_in": self.tomorrow.strftime("%Y-%m-%d"),
             "check_out": self.day_after.strftime("%Y-%m-%d"),
             "guests": 2

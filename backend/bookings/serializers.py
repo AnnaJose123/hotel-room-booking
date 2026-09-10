@@ -36,11 +36,10 @@ class BookingSerializer(serializers.ModelSerializer):
         return cleaned_phone
 
     def validate_room(self, value):
-        if value not in OFFERED_ROOMS:
-            raise serializers.ValidationError(
-                f"Invalid room choice '{value}'. Must be one of: {', '.join(OFFERED_ROOMS)}."
-            )
-        return value
+        cleaned_room = value.strip() if value else ''
+        if not cleaned_room:
+            raise serializers.ValidationError("Please select or enter a room type.")
+        return cleaned_room
 
     def validate_guests(self, value):
         if value is None or value < 1:

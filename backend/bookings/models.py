@@ -11,7 +11,7 @@ class Booking(models.Model):
 
     name = models.CharField(max_length=120, help_text="Full name of primary guest")
     phone = models.CharField(max_length=30, help_text="Contact phone number")
-    room = models.CharField(max_length=60, choices=ROOM_CHOICES, help_text="Selected room type")
+    room = models.CharField(max_length=120, help_text="Selected room type")
     check_in = models.DateField(help_text="Check-in date")
     check_out = models.DateField(help_text="Check-out date")
     guests = models.PositiveIntegerField(default=1, help_text="Number of guests")

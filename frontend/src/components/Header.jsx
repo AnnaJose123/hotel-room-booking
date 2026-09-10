@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Logo from './Logo';
-import { Phone, Globe, ChevronDown, Menu, X, Calendar, MapPin } from 'lucide-react';
+import { Phone, Globe, ChevronDown, Menu, X, Calendar, MapPin, User, Crown } from 'lucide-react';
 import { EXPERIENCES_DATA } from '../data/experiencesData';
 
-export default function Header({ onBookClick }) {
+export default function Header({ onBookClick, onLoginClick, userSession }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeLang, setActiveLang] = useState('EN');
   const [activeMegaMenu, setActiveMegaMenu] = useState(null);
@@ -75,6 +75,28 @@ export default function Header({ onBookClick }) {
           </div>
 
           <div className="flex items-center gap-3 sm:gap-4">
+            {/* Member Portal Button */}
+            <button
+              onClick={onLoginClick}
+              className="flex items-center gap-1.5 text-[10px] sm:text-[11px] hover:text-[#9C7A50] transition-colors"
+            >
+              {userSession?.isLoggedIn ? (
+                <>
+                  <Crown className="w-3 h-3 text-[#9C7A50]" />
+                  <span className="font-semibold text-white truncate max-w-[120px]">
+                    {userSession.name}
+                  </span>
+                </>
+              ) : (
+                <>
+                  <User className="w-3 h-3 text-[#9C7A50]" />
+                  <span>Member Desk / Sign In</span>
+                </>
+              )}
+            </button>
+
+            <span className="text-white/20">|</span>
+
             <div className="flex items-center gap-0.5 sm:gap-1 bg-white/10 rounded-full px-1.5 sm:px-2 py-0.5 text-[10px] sm:text-[11px]">
               <Globe className="w-3 h-3 text-[#9C7A50]" />
               <button

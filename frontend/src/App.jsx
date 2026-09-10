@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Preloader from './components/Preloader';
+import CustomCursor from './components/motion/CustomCursor';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import PillRow from './components/PillRow';
@@ -12,7 +12,6 @@ import CtaBanner from './components/CtaBanner';
 import Footer from './components/Footer';
 
 export default function App() {
-  const [loading, setLoading] = useState(true);
   const [prefilledRoom, setPrefilledRoom] = useState(null);
 
   const handleBookRoom = (roomName) => {
@@ -25,29 +24,32 @@ export default function App() {
 
   return (
     <>
-      {/* Luxury Opening Preloader Screen */}
-      {loading && <Preloader onComplete={() => setLoading(false)} />}
+      {/* Film Grain Texture Overlay */}
+      <div className="film-grain-overlay" />
 
-      <div className="min-h-screen bg-[#F7F5F0] text-[#2C2C28] font-sans antialiased selection:bg-[#7A8A6F] selection:text-white">
-        {/* Header & Sticky Navigation */}
+      {/* Awwwards Lerp Custom Cursor */}
+      <CustomCursor />
+
+      <div className="min-h-screen bg-[#F6F3EC] text-[#211F1A] font-sans antialiased selection:bg-[#9C7A50] selection:text-white relative">
+        {/* Sticky Header & Navigation */}
         <Header onBookClick={handleResetPrefill} />
 
         {/* Hero Section */}
         <Hero onBookClick={handleResetPrefill} />
 
-        {/* Pill Tag Row */}
+        {/* Tag Pill Row */}
         <PillRow />
 
         {/* Feature Grid Section */}
         <FeatureGrid />
 
-        {/* Available Rooms Carousel & Grid */}
+        {/* Room Showcase Carousel & Grid */}
         <RoomCards onBookRoom={handleBookRoom} />
 
         {/* Interactive Booking Widget Section (Django API Connected) */}
         <BookingWidget prefilledRoom={prefilledRoom} onResetPrefill={handleResetPrefill} />
 
-        {/* Package Offers Section */}
+        {/* Bespoke Offers */}
         <OfferCards onSelectOfferRoom={handleBookRoom} />
 
         {/* Masonry Photo Gallery */}
@@ -56,7 +58,7 @@ export default function App() {
         {/* Event CTA Banner */}
         <CtaBanner onBookClick={handleResetPrefill} />
 
-        {/* Multi-column Footer */}
+        {/* Footer */}
         <Footer />
       </div>
     </>

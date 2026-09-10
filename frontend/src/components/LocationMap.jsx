@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MapPin, Navigation, Compass, Layers, Phone, Clock, ExternalLink, Sparkles } from 'lucide-react';
+import { MapPin, Navigation, Compass, Phone, Clock, ExternalLink, Sparkles } from 'lucide-react';
 import RevealTile from './motion/RevealTile';
 import SplitReveal from './motion/SplitReveal';
 
@@ -11,7 +11,7 @@ const LANDMARKS = [
     coords: { x: 48, y: 42 },
     address: "Fjord Valley 42, 8000 Aarhus",
     desc: "Main reception, Lakeview Suites, Grand Haven Lounge, and concierge desk.",
-    image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=600&q=80"
+    image: "https://images.pexels.com/photos/258154/pexels-photo-258154.jpeg?auto=compress&cs=tinysrgb&w=600"
   },
   {
     id: 2,
@@ -20,7 +20,7 @@ const LANDMARKS = [
     coords: { x: 32, y: 60 },
     address: "Pine Grove Trail 8",
     desc: "Natural geo-thermal mineral hot pools, Finnish saunas, and plunge baths.",
-    image: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=600&q=80"
+    image: "https://images.pexels.com/photos/3225531/pexels-photo-3225531.jpeg?auto=compress&cs=tinysrgb&w=600"
   },
   {
     id: 3,
@@ -29,7 +29,7 @@ const LANDMARKS = [
     coords: { x: 64, y: 35 },
     address: "Coastal Terrace 12",
     desc: "7-course seasonal organic tasting menu paired with rare natural wines.",
-    image: "https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=600&q=80"
+    image: "https://images.pexels.com/photos/1267320/pexels-photo-1267320.jpeg?auto=compress&cs=tinysrgb&w=600"
   },
   {
     id: 4,
@@ -38,7 +38,7 @@ const LANDMARKS = [
     coords: { x: 75, y: 68 },
     address: "Pine Forest Ridge",
     desc: "Freestanding timber lodges embedded in pine woodland with private heated plunge pools.",
-    image: "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=600&q=80"
+    image: "https://images.pexels.com/photos/206172/pexels-photo-206172.jpeg?auto=compress&cs=tinysrgb&w=600"
   },
   {
     id: 5,
@@ -47,13 +47,13 @@ const LANDMARKS = [
     coords: { x: 22, y: 28 },
     address: "Fjord Shoreline",
     desc: "Glass-bottom kayaks, guided fjord fishing, and private yacht transfers.",
-    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
+    image: "https://images.pexels.com/photos/2749481/pexels-photo-2749481.jpeg?auto=compress&cs=tinysrgb&w=600"
   }
 ];
 
 export default function LocationMap() {
   const [activePin, setActivePin] = useState(LANDMARKS[0]);
-  const [mapMode, setMapMode] = useState('terrain'); // terrain | satellite | minimal
+  const [mapMode, setMapMode] = useState('terrain');
   const [zoomLevel, setZoomLevel] = useState(1);
 
   return (
@@ -82,10 +82,8 @@ export default function LocationMap() {
           {/* Left / Top: Interactive Styled Map Container */}
           <div className="lg:col-span-2 space-y-4">
             
-            {/* Map Canvas Card */}
             <RevealTile className="w-full rounded-3xl border border-[#E4DFD2] bg-[#EFECE6] overflow-hidden shadow-xl relative h-[420px] sm:h-[500px]">
               
-              {/* Map View Styling Layers */}
               <div
                 className={`absolute inset-0 transition-all duration-700 ${
                   mapMode === 'satellite'
@@ -96,20 +94,16 @@ export default function LocationMap() {
                 }`}
                 style={{ transform: `scale(${zoomLevel})`, transition: 'transform 0.4s ease-out' }}
               >
-                {/* Custom Vector Fjord Map Graphic Background */}
                 <svg className="w-full h-full object-cover" viewBox="0 0 100 100" preserveAspectRatio="none">
-                  {/* Fjord Water */}
                   <path d="M0,0 L40,0 C35,25 20,40 10,70 L0,100 Z" fill="#D2E3E8" />
-                  {/* Pine Forest Green Areas */}
                   <path d="M40,0 C50,30 65,40 100,50 L100,100 L10,100 C20,70 35,25 40,0 Z" fill="#E2DDD2" />
-                  {/* Elevation Contour Lines */}
                   <path d="M30,10 Q60,30 90,20" stroke="#C8C2B4" strokeWidth="0.5" fill="none" strokeDasharray="1,1" />
                   <path d="M25,30 Q55,50 85,40" stroke="#C8C2B4" strokeWidth="0.5" fill="none" strokeDasharray="1,1" />
                   <path d="M20,60 Q50,75 80,65" stroke="#C8C2B4" strokeWidth="0.5" fill="none" strokeDasharray="1,1" />
                 </svg>
               </div>
 
-              {/* Map Mode Toolbar Controls */}
+              {/* Map Controls */}
               <div className="absolute top-4 left-4 z-20 flex items-center gap-2 bg-white/90 backdrop-blur-md p-1.5 rounded-full border border-[#E4DFD2] shadow-md text-[10px] uppercase font-mono">
                 <button
                   onClick={() => setMapMode('terrain')}
@@ -129,7 +123,6 @@ export default function LocationMap() {
                 </button>
               </div>
 
-              {/* Zoom Level Controls */}
               <div className="absolute bottom-4 right-4 z-20 flex flex-col gap-1 bg-white/90 backdrop-blur-md p-1 rounded-xl border border-[#E4DFD2] shadow-md">
                 <button
                   onClick={() => setZoomLevel((z) => Math.min(z + 0.15, 1.4))}
@@ -148,7 +141,7 @@ export default function LocationMap() {
                 </button>
               </div>
 
-              {/* Interactive Landmark Map Pins */}
+              {/* Map Pins */}
               {LANDMARKS.map((lm) => {
                 const isActive = activePin.id === lm.id;
                 return (
@@ -162,7 +155,6 @@ export default function LocationMap() {
                     <div className={`relative flex items-center justify-center transition-all duration-300 ${
                       isActive ? 'scale-125 z-40' : 'hover:scale-110'
                     }`}>
-                      {/* Pulse Ring around Pin */}
                       {isActive && (
                         <div className="absolute w-10 h-10 rounded-full bg-[#9C7A50]/30 animate-ping" />
                       )}
@@ -175,7 +167,6 @@ export default function LocationMap() {
                         <MapPin className="w-5 h-5" />
                       </div>
 
-                      {/* Tooltip Label */}
                       <span className={`absolute top-full mt-1.5 whitespace-nowrap text-[10px] font-semibold tracking-wider px-2.5 py-1 rounded-full bg-white/95 text-[#211F1A] border border-[#E4DFD2] shadow-md transition-all ${
                         isActive ? 'opacity-100 scale-100' : 'opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100'
                       }`}>
@@ -187,7 +178,7 @@ export default function LocationMap() {
               })}
             </RevealTile>
 
-            {/* Quick Transport Info Bar */}
+            {/* Transport Info */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs text-[#211F1A]">
               <div className="bg-white p-4 rounded-2xl border border-[#E4DFD2] flex items-center gap-3">
                 <Navigation className="w-5 h-5 text-[#5E6B4F] shrink-0" />
@@ -213,7 +204,7 @@ export default function LocationMap() {
             </div>
           </div>
 
-          {/* Right: Selected Landmark Details Card */}
+          {/* Right: Landmark Details */}
           <div className="bg-white rounded-3xl border border-[#E4DFD2] p-6 sm:p-8 shadow-xl space-y-6 animate-fade-in sticky top-28">
             <div className="relative h-48 rounded-2xl overflow-hidden border border-[#E4DFD2]">
               <img

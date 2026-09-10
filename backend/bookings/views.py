@@ -13,7 +13,7 @@ ROOM_CATALOG = [
         "size_m2": 38,
         "capacity": 2,
         "price_per_night": 240,
-        "image": "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=1200&q=80",
+        "image": "https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=1200",
         "short_desc": "Cozy minimal sanctuary featuring warm oak paneling, king bed, and private forest-view balcony.",
         "amenities": ["Balcony", "Free Wi-Fi", "Espresso Machine", "Rain Shower"]
     },
@@ -24,7 +24,7 @@ ROOM_CATALOG = [
         "size_m2": 54,
         "capacity": 3,
         "price_per_night": 390,
-        "image": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=80",
+        "image": "https://images.pexels.com/photos/1743229/pexels-photo-1743229.jpeg?auto=compress&cs=tinysrgb&w=1200",
         "short_desc": "Panoramic floor-to-ceiling lake vistas, deep soaking stone bath, and fireplace.",
         "amenities": ["Lake View", "Fireplace", "Stone Tub", "Breakfast Included"]
     },
@@ -35,7 +35,7 @@ ROOM_CATALOG = [
         "size_m2": 72,
         "capacity": 4,
         "price_per_night": 580,
-        "image": "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=1200&q=80",
+        "image": "https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=1200",
         "short_desc": "Expansive two-room layout with Scandinavian lounge design, sauna, and private terrace.",
         "amenities": ["Private Sauna", "Lounge Area", "Terrace", "Butler Service"]
     },
@@ -46,7 +46,7 @@ ROOM_CATALOG = [
         "size_m2": 95,
         "capacity": 5,
         "price_per_night": 820,
-        "image": "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=1200&q=80",
+        "image": "https://images.pexels.com/photos/206172/pexels-photo-206172.jpeg?auto=compress&cs=tinysrgb&w=1200",
         "short_desc": "Freestanding timber lodge embedded in pine woodland with private heated plunge pool.",
         "amenities": ["Plunge Pool", "Private Garden", "Kitchenette", "EV Charger"]
     },
@@ -57,7 +57,7 @@ ROOM_CATALOG = [
         "size_m2": 140,
         "capacity": 6,
         "price_per_night": 1250,
-        "image": "https://images.unsplash.com/photo-1591088398332-8a7791972843?auto=format&fit=crop&w=1200&q=80",
+        "image": "https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?auto=compress&cs=tinysrgb&w=1200",
         "short_desc": "The ultimate luxury statement with 360-degree resort views, private elevator, and chef service.",
         "amenities": ["Private Elevator", "360 Views", "Chef Service", "Helipad Access"]
     }

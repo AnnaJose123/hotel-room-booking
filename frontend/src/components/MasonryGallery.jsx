@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Maximize2, ChevronLeft, ChevronRight, X, Play, Pause, LayoutGrid, SlidersHorizontal, Sparkles } from 'lucide-react';
+import { Maximize2, ChevronLeft, ChevronRight, X, Play, Pause, LayoutGrid, SlidersHorizontal } from 'lucide-react';
 import RevealTile from './motion/RevealTile';
 import TiltCard from './motion/TiltCard';
 import Marquee from './motion/Marquee';
@@ -11,63 +11,63 @@ import MagneticButton from './motion/MagneticButton';
 const GALLERY_IMAGES = [
   {
     id: 1,
-    url: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1600&q=85",
+    url: "https://images.pexels.com/photos/258154/pexels-photo-258154.jpeg?auto=compress&cs=tinysrgb&w=1600",
     caption: "Nordic Sunset over the Resort Main Pavilion",
     category: "Architecture & Grounds",
     span: "col-span-1 md:col-span-2 row-span-2"
   },
   {
     id: 2,
-    url: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1200&q=85",
+    url: "https://images.pexels.com/photos/3225531/pexels-photo-3225531.jpeg?auto=compress&cs=tinysrgb&w=1200",
     caption: "Outdoor Geothermal Thermal Hot Spring Pool",
     category: "Hydrotherapy Wellness",
     span: "col-span-1 row-span-1"
   },
   {
     id: 3,
-    url: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=85",
+    url: "https://images.pexels.com/photos/6620860/pexels-photo-6620860.jpeg?auto=compress&cs=tinysrgb&w=1200",
     caption: "Deluxe Lakeview Suite Soaking Bath",
     category: "Lakeview Accommodations",
     span: "col-span-1 row-span-1"
   },
   {
     id: 4,
-    url: "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=1200&q=85",
+    url: "https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=1200",
     caption: "Oak Timber Balcony Overlooking Pine Woodland",
     category: "Standard Suite Views",
     span: "col-span-1 row-span-2"
   },
   {
     id: 5,
-    url: "https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=1200&q=85",
+    url: "https://images.pexels.com/photos/1267320/pexels-photo-1267320.jpeg?auto=compress&cs=tinysrgb&w=1200",
     caption: "Artisanal Organic Farm-to-Table Gastronomy",
     category: "Restaurant SAGA",
     span: "col-span-1 row-span-1"
   },
   {
     id: 6,
-    url: "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=1200&q=85",
+    url: "https://images.pexels.com/photos/206172/pexels-photo-206172.jpeg?auto=compress&cs=tinysrgb&w=1200",
     caption: "Forest Eco Lodge Heated Plunge Pool",
     category: "Private Eco Villas",
     span: "col-span-1 md:col-span-2 row-span-1"
   },
   {
     id: 7,
-    url: "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=1200&q=85",
+    url: "https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=1200",
     caption: "Nordic Cedar Sauna & Fireplace Lounge",
     category: "Grand Haven Suite",
     span: "col-span-1 row-span-1"
   },
   {
     id: 8,
-    url: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1200&q=85",
+    url: "https://images.pexels.com/photos/1624496/pexels-photo-1624496.jpeg?auto=compress&cs=tinysrgb&w=1200",
     caption: "Starlit Observatory Terrace & Firepit",
     category: "Night Sky Experiences",
     span: "col-span-1 row-span-1"
   },
   {
     id: 9,
-    url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=85",
+    url: "https://images.pexels.com/photos/2749481/pexels-photo-2749481.jpeg?auto=compress&cs=tinysrgb&w=1200",
     caption: "Private Fjord Kayak Morning Excursion",
     category: "Guided Eco Excursions",
     span: "col-span-1 md:col-span-2 row-span-1"
@@ -75,21 +75,20 @@ const GALLERY_IMAGES = [
 ];
 
 const SECONDARY_STRIP = [
-  "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=600&q=80",
-  "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=600&q=80",
-  "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=600&q=80",
-  "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=600&q=80",
-  "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=600&q=80",
-  "https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=600&q=80"
+  "https://images.pexels.com/photos/3225531/pexels-photo-3225531.jpeg?auto=compress&cs=tinysrgb&w=600",
+  "https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=600",
+  "https://images.pexels.com/photos/1743229/pexels-photo-1743229.jpeg?auto=compress&cs=tinysrgb&w=600",
+  "https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=600",
+  "https://images.pexels.com/photos/206172/pexels-photo-206172.jpeg?auto=compress&cs=tinysrgb&w=600",
+  "https://images.pexels.com/photos/1267320/pexels-photo-1267320.jpeg?auto=compress&cs=tinysrgb&w=600"
 ];
 
 export default function MasonryGallery() {
-  const [viewMode, setViewMode] = useState('slideshow'); // 'slideshow' | 'grid'
+  const [viewMode, setViewMode] = useState('slideshow');
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   const [lightboxIndex, setLightboxIndex] = useState(null);
 
-  // Auto-play timer for slideshow
   useEffect(() => {
     if (!isPlaying || viewMode !== 'slideshow') return;
 
@@ -110,7 +109,7 @@ export default function MasonryGallery() {
     <section id="gallery" className="py-24 px-4 sm:px-6 bg-[#F6F3EC] space-y-16 border-t border-[#E4DFD2]">
       <div className="max-w-[1400px] mx-auto space-y-12">
         
-        {/* Section Header & View Mode Switcher */}
+        {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#E4DFD2] pb-8">
           <div className="space-y-2">
             <div className="inline-flex items-center gap-2">
@@ -126,7 +125,7 @@ export default function MasonryGallery() {
             </SplitReveal>
           </div>
 
-          {/* View Mode Switcher Buttons */}
+          {/* View Mode Switcher */}
           <div className="flex items-center gap-2 bg-white/80 p-1.5 rounded-full border border-[#E4DFD2] shadow-sm self-start md:self-auto">
             <button
               onClick={() => setViewMode('slideshow')}
@@ -156,12 +155,10 @@ export default function MasonryGallery() {
           </div>
         </div>
 
-        {/* MODE 1: Interactive Full-Width Luxury Slideshow Showcase */}
+        {/* MODE 1: Slideshow Showcase */}
         {viewMode === 'slideshow' && (
           <div className="space-y-6 animate-fade-in">
             <RevealTile className="w-full rounded-3xl border border-[#E4DFD2] bg-[#211F1A] overflow-hidden shadow-2xl relative h-[450px] sm:h-[600px]">
-              
-              {/* Framer Motion Crossfade Slide */}
               <AnimatePresence mode="wait">
                 <motion.div
                   key={currentSlide}
@@ -176,13 +173,13 @@ export default function MasonryGallery() {
                   <img
                     src={GALLERY_IMAGES[currentSlide].url}
                     alt={GALLERY_IMAGES[currentSlide].caption}
-                    className="w-full h-full object-cover brightness-[0.96] contrast-[1.03] saturate-[0.92] sepia-[0.06]"
+                    className="w-full h-full object-cover brightness-[0.98] contrast-[1.03] saturate-[0.92] sepia-[0.06]"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
                 </motion.div>
               </AnimatePresence>
 
-              {/* Active Slide Caption Overlay */}
+              {/* Caption Overlay */}
               <div className="absolute bottom-6 left-6 right-6 z-20 flex flex-col sm:flex-row sm:items-end justify-between gap-4 text-white">
                 <div className="space-y-1.5 max-w-xl">
                   <span className="text-[10px] sm:text-xs uppercase tracking-[0.25em] font-mono text-[#9C7A50] font-semibold bg-white/90 px-3 py-1 rounded-full shadow-sm">
@@ -203,7 +200,7 @@ export default function MasonryGallery() {
                 </MagneticButton>
               </div>
 
-              {/* Arrow Controls & Auto-play Toggle */}
+              {/* Controls */}
               <div className="absolute top-6 right-6 z-20 flex items-center gap-2 bg-black/40 backdrop-blur-md p-1.5 rounded-full border border-white/20">
                 <button
                   onClick={() => setIsPlaying(!isPlaying)}
@@ -213,29 +210,20 @@ export default function MasonryGallery() {
                   {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
                 </button>
                 <div className="w-[1px] h-4 bg-white/30" />
-                <button
-                  onClick={prevSlide}
-                  className="p-2 rounded-full hover:bg-white/20 text-white transition-colors"
-                  aria-label="Previous slide"
-                >
+                <button onClick={prevSlide} className="p-2 rounded-full hover:bg-white/20 text-white transition-colors" aria-label="Previous slide">
                   <ChevronLeft className="w-4 h-4" />
                 </button>
-                <button
-                  onClick={nextSlide}
-                  className="p-2 rounded-full hover:bg-white/20 text-white transition-colors"
-                  aria-label="Next slide"
-                >
+                <button onClick={nextSlide} className="p-2 rounded-full hover:bg-white/20 text-white transition-colors" aria-label="Next slide">
                   <ChevronRight className="w-4 h-4" />
                 </button>
               </div>
 
-              {/* Slide Counter Badge */}
               <div className="absolute top-6 left-6 z-20 bg-black/40 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/20 text-white text-xs font-mono font-medium">
                 {currentSlide + 1} / {GALLERY_IMAGES.length}
               </div>
             </RevealTile>
 
-            {/* Thumbnail Strip Selector */}
+            {/* Thumbnail Strip */}
             <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-thin">
               {GALLERY_IMAGES.map((img, idx) => (
                 <button
@@ -247,7 +235,7 @@ export default function MasonryGallery() {
                       : 'border-transparent opacity-60 hover:opacity-100'
                   }`}
                 >
-                  <img src={img.url} alt={img.caption} className="w-full h-full object-cover" />
+                  <img src={img.url} alt={img.caption} className="w-full h-full object-cover brightness-[0.98] contrast-[1.03]" />
                   <div className="absolute inset-0 bg-black/20" />
                 </button>
               ))}
@@ -255,7 +243,7 @@ export default function MasonryGallery() {
           </div>
         )}
 
-        {/* MODE 2: 9-Tile True Masonry Grid View */}
+        {/* MODE 2: Grid View */}
         {viewMode === 'grid' && (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 sm:gap-6 auto-rows-[240px] animate-fade-in">
             {GALLERY_IMAGES.map((img, idx) => (
@@ -289,7 +277,7 @@ export default function MasonryGallery() {
         )}
       </div>
 
-      {/* Infinite Auto-Scrolling Secondary Photo Strip */}
+      {/* Marquee Strip */}
       <div className="pt-6 space-y-4">
         <div className="text-center">
           <span className="text-[11px] font-mono uppercase tracking-[0.25em] text-[#9C7A50] font-semibold">
@@ -312,19 +300,11 @@ export default function MasonryGallery() {
       {/* Lightbox Modal */}
       {lightboxIndex !== null && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-md p-4 animate-fade-in">
-          <button
-            onClick={closeLightbox}
-            className="absolute top-6 right-6 p-3 text-white/80 hover:text-white rounded-full bg-white/10 backdrop-blur-md hover:bg-white/20 transition-colors z-50"
-            aria-label="Close Lightbox"
-          >
+          <button onClick={closeLightbox} className="absolute top-6 right-6 p-3 text-white/80 hover:text-white rounded-full bg-white/10 backdrop-blur-md hover:bg-white/20 transition-colors z-50" aria-label="Close Lightbox">
             <X className="w-6 h-6" />
           </button>
 
-          <button
-            onClick={() => setLightboxIndex((prev) => (prev === 0 ? GALLERY_IMAGES.length - 1 : prev - 1))}
-            className="absolute left-6 p-3 text-white/80 hover:text-white rounded-full bg-white/10 backdrop-blur-md hover:bg-white/20 transition-colors z-50"
-            aria-label="Previous Image"
-          >
+          <button onClick={() => setLightboxIndex((prev) => (prev === 0 ? GALLERY_IMAGES.length - 1 : prev - 1))} className="absolute left-6 p-3 text-white/80 hover:text-white rounded-full bg-white/10 backdrop-blur-md hover:bg-white/20 transition-colors z-50" aria-label="Previous Image">
             <ChevronLeft className="w-6 h-6" />
           </button>
 
@@ -344,11 +324,7 @@ export default function MasonryGallery() {
             </div>
           </div>
 
-          <button
-            onClick={() => setLightboxIndex((prev) => (prev === GALLERY_IMAGES.length - 1 ? 0 : prev + 1))}
-            className="absolute right-6 p-3 text-white/80 hover:text-white rounded-full bg-white/10 backdrop-blur-md hover:bg-white/20 transition-colors z-50"
-            aria-label="Next Image"
-          >
+          <button onClick={() => setLightboxIndex((prev) => (prev === GALLERY_IMAGES.length - 1 ? 0 : prev + 1))} className="absolute right-6 p-3 text-white/80 hover:text-white rounded-full bg-white/10 backdrop-blur-md hover:bg-white/20 transition-colors z-50" aria-label="Next Image">
             <ChevronRight className="w-6 h-6" />
           </button>
         </div>

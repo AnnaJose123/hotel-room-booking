@@ -6,19 +6,19 @@ import MagneticButton from './motion/MagneticButton';
 
 const HERO_SLIDES = [
   {
-    image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=2000&q=85",
+    image: "https://images.pexels.com/photos/258154/pexels-photo-258154.jpeg?auto=compress&cs=tinysrgb&w=2000",
     title: "Sanctuary of Quiet Stillness",
     accent: "handcrafted for deep renewal",
     subtitle: "Immerse yourself in nature, thermal springs, and architectural elegance overlooking pristine Nordic fjords."
   },
   {
-    image: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=2000&q=85",
+    image: "https://images.pexels.com/photos/1743229/pexels-photo-1743229.jpeg?auto=compress&cs=tinysrgb&w=2000",
     title: "Lakeview Elegance and Peace",
     accent: "where architecture meets nature",
     subtitle: "Every suite offers floor-to-ceiling panoramic views, handcrafted oak interiors, and personal stone soaking tubs."
   },
   {
-    image: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=2000&q=85",
+    image: "https://images.pexels.com/photos/3225531/pexels-photo-3225531.jpeg?auto=compress&cs=tinysrgb&w=2000",
     title: "Hydrothermal Botanical Wellness",
     accent: "pure mineral restoration",
     subtitle: "Natural mineral hot pools, cedarwood saunas, and organic forest botanical therapies designed for complete renewal."

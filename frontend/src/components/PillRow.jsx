@@ -26,19 +26,20 @@ export default function PillRow() {
   };
 
   return (
-    <section className="py-12 px-6 bg-[#F7F5F0] border-y border-[#E6E1D8]">
-      <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row items-center gap-6">
+    <section className="py-8 sm:py-12 px-4 sm:px-6 bg-[#F7F5F0] border-y border-[#E6E1D8]">
+      <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-6">
         <div className="flex items-center gap-2 text-xs uppercase tracking-widest text-[#A9825E] font-semibold shrink-0">
-          <Tag className="w-4 h-4" />
+          <Tag className="w-4 h-4 text-[#7A8A6F]" />
           <span>Resort Highlights</span>
         </div>
 
-        <div className="flex flex-wrap gap-2.5 justify-center md:justify-start">
+        {/* Horizontal Touch Scrollable Pill Row on Mobile */}
+        <div className="w-full flex overflow-x-auto pb-2 md:pb-0 gap-2 sm:gap-2.5 scrollbar-thin md:flex-wrap">
           {TAGS.map((tag, idx) => (
             <button
               key={idx}
               onClick={() => handleTagClick(tag)}
-              className={`text-xs font-medium px-4 py-2 rounded-full border transition-all duration-300 ${
+              className={`text-[11px] sm:text-xs font-medium px-3.5 py-1.5 sm:py-2 rounded-full border transition-all duration-300 whitespace-nowrap shrink-0 ${
                 activeTag === tag.name
                   ? 'bg-[#7A8A6F] text-white border-[#7A8A6F] shadow-sm'
                   : 'bg-white text-[#2C2C28]/80 border-[#E6E1D8] hover:border-[#7A8A6F] hover:text-[#7A8A6F]'

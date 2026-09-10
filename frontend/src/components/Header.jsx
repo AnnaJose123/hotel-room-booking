@@ -235,33 +235,39 @@ export default function Header({ onBookClick, onLoginClick, userSession }) {
 
       {/* Mobile Drawer */}
       {isMobileDrawerOpen && (
-        <div className="lg:hidden fixed inset-0 top-[52px] bg-[#F6F3EC] z-50 p-6 flex flex-col justify-between overflow-y-auto animate-fade-in border-t border-[#E4DFD2]">
+        <div className="lg:hidden fixed inset-0 bg-[#F6F3EC] z-50 p-6 flex flex-col justify-between overflow-y-auto animate-fade-in">
           <div className="space-y-6">
-            <div className="border-b border-[#E4DFD2] pb-3 flex justify-between items-center">
-              <span className="text-xs uppercase tracking-widest text-[#9C7A50] font-semibold">Resort Menu</span>
-              <span className="text-[11px] text-[#6B6A62]">Aura Boutique Hotel</span>
+            <div className="border-b border-[#E4DFD2] pb-4 flex justify-between items-center">
+              <Logo />
+              <button
+                onClick={() => setIsMobileDrawerOpen(false)}
+                className="p-2 text-[#211F1A] hover:text-[#5E6B4F] rounded-full hover:bg-black/5"
+                aria-label="Close menu"
+              >
+                <X className="w-6 h-6" />
+              </button>
             </div>
             
-            <nav className="flex flex-col space-y-4 text-xl font-serif-luxury text-[#211F1A]">
-              <button onClick={() => scrollToSection('hero')} className="text-left hover:text-[#5E6B4F] transition-colors py-1 border-b border-[#E4DFD2]/40">
+            <nav className="flex flex-col space-y-3 text-lg sm:text-xl font-serif-luxury text-[#211F1A]">
+              <button onClick={() => scrollToSection('hero')} className="text-left hover:text-[#5E6B4F] transition-colors py-2 border-b border-[#E4DFD2]/40">
                 Home Sanctuary
               </button>
-              <button onClick={() => scrollToSection('rooms')} className="text-left hover:text-[#5E6B4F] transition-colors py-1 border-b border-[#E4DFD2]/40">
+              <button onClick={() => scrollToSection('rooms')} className="text-left hover:text-[#5E6B4F] transition-colors py-2 border-b border-[#E4DFD2]/40">
                 Suites & Private Villas
               </button>
-              <button onClick={() => scrollToSection('experiences')} className="text-left hover:text-[#5E6B4F] transition-colors py-1 border-b border-[#E4DFD2]/40">
+              <button onClick={() => scrollToSection('experiences')} className="text-left hover:text-[#5E6B4F] transition-colors py-2 border-b border-[#E4DFD2]/40">
                 The Aura Experience
               </button>
-              <button onClick={() => scrollToSection('offers')} className="text-left hover:text-[#5E6B4F] transition-colors py-1 border-b border-[#E4DFD2]/40">
+              <button onClick={() => scrollToSection('offers')} className="text-left hover:text-[#5E6B4F] transition-colors py-2 border-b border-[#E4DFD2]/40">
                 Bespoke Escape Offers
               </button>
-              <button onClick={() => scrollToSection('gallery')} className="text-left hover:text-[#5E6B4F] transition-colors py-1 border-b border-[#E4DFD2]/40">
+              <button onClick={() => scrollToSection('gallery')} className="text-left hover:text-[#5E6B4F] transition-colors py-2 border-b border-[#E4DFD2]/40">
                 Photo Gallery
               </button>
-              <button onClick={() => scrollToSection('location')} className="text-left hover:text-[#5E6B4F] transition-colors py-1 border-b border-[#E4DFD2]/40">
+              <button onClick={() => scrollToSection('location')} className="text-left hover:text-[#5E6B4F] transition-colors py-2 border-b border-[#E4DFD2]/40">
                 Location & Resort Map
               </button>
-              <button onClick={() => scrollToSection('contact')} className="text-left hover:text-[#5E6B4F] transition-colors py-1 border-b border-[#E4DFD2]/40">
+              <button onClick={() => scrollToSection('contact')} className="text-left hover:text-[#5E6B4F] transition-colors py-2 border-b border-[#E4DFD2]/40">
                 Contact & Guest Desk
               </button>
             </nav>

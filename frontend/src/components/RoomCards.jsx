@@ -90,11 +90,11 @@ export default function RoomCards({ onBookRoom }) {
         </div>
 
         {/* Horizontally Scrollable Room Container */}
-        <div className="flex gap-8 overflow-x-auto pb-8 pt-2 scrollbar-thin scroll-smooth snap-x snap-mandatory">
+        <div className="flex gap-4 sm:gap-8 overflow-x-auto pb-8 pt-2 scrollbar-thin scroll-smooth snap-x snap-mandatory px-1">
           {ROOM_DATA.map((room, index) => (
             <div
               key={index}
-              className="min-w-[320px] sm:min-w-[400px] lg:min-w-[440px] max-w-[450px] bg-white rounded-3xl border border-[#E4DFD2] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 flex flex-col justify-between snap-start group"
+              className="w-[86vw] max-w-[420px] sm:w-[380px] lg:w-[420px] shrink-0 bg-white rounded-3xl border border-[#E4DFD2] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 flex flex-col justify-between snap-start group"
             >
               <div>
                 {/* Room Image Container */}

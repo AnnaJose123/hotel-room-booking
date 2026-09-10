@@ -41,7 +41,7 @@ export default function App() {
       {/* Awwwards Lerp Custom Cursor */}
       <CustomCursor />
 
-      <div className="min-h-screen bg-[#F6F3EC] text-[#211F1A] font-sans antialiased selection:bg-[#9C7A50] selection:text-white relative">
+      <div className="min-h-screen w-full max-w-full overflow-x-hidden bg-[#F6F3EC] text-[#211F1A] font-sans antialiased selection:bg-[#9C7A50] selection:text-white relative">
         {/* Sticky Header & Navigation */}
         <Header onBookClick={handleResetPackage} />
 

@@ -158,7 +158,7 @@ export default function MasonryGallery() {
         {/* MODE 1: Slideshow Showcase */}
         {viewMode === 'slideshow' && (
           <div className="space-y-6 animate-fade-in">
-            <RevealTile className="w-full rounded-3xl border border-[#E4DFD2] bg-[#211F1A] overflow-hidden shadow-2xl relative h-[450px] sm:h-[600px]">
+            <RevealTile className="w-full rounded-3xl border border-[#E4DFD2] bg-[#211F1A] overflow-hidden shadow-2xl relative h-[320px] xs:h-[400px] sm:h-[550px]">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={currentSlide}

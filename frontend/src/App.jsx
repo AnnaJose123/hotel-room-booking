@@ -8,6 +8,7 @@ import RoomCards from './components/RoomCards';
 import BookingWidget from './components/BookingWidget';
 import OfferCards from './components/OfferCards';
 import MasonryGallery from './components/MasonryGallery';
+import LocationMap from './components/LocationMap';
 import CtaBanner from './components/CtaBanner';
 import Footer from './components/Footer';
 
@@ -49,11 +50,14 @@ export default function App() {
         {/* Interactive Booking Widget Section (Django API Connected) */}
         <BookingWidget prefilledRoom={prefilledRoom} onResetPrefill={handleResetPrefill} />
 
-        {/* Bespoke Offers */}
+        {/* Bespoke Escape Offers */}
         <OfferCards onSelectOfferRoom={handleBookRoom} />
 
         {/* Masonry Photo Gallery */}
         <MasonryGallery />
+
+        {/* Location & Interactive Map Section */}
+        <LocationMap />
 
         {/* Event CTA Banner */}
         <CtaBanner onBookClick={handleResetPrefill} />

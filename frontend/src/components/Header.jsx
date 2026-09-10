@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Logo from './Logo';
-import { Phone, Globe, ChevronDown, Menu, X, Calendar, MapPin, User, Crown } from 'lucide-react';
+import { ChevronDown, Menu, X, Calendar, MapPin } from 'lucide-react';
 import { EXPERIENCES_DATA } from '../data/experiencesData';
 
-export default function Header({ onBookClick, onLoginClick, userSession }) {
+export default function Header({ onBookClick }) {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [activeLang, setActiveLang] = useState('EN');
   const [activeMegaMenu, setActiveMegaMenu] = useState(null);
   const [isMobileDrawerOpen, setIsMobileDrawerOpen] = useState(false);
 
@@ -60,69 +59,6 @@ export default function Header({ onBookClick, onLoginClick, userSession }) {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-40 transition-all duration-300">
-      {/* Thin Utility Bar */}
-      <div className={`bg-[#211F1A] text-[#F6F3EC]/80 text-[11px] sm:text-xs px-4 sm:px-6 transition-all duration-300 ${
-        isScrolled ? 'h-0 py-0 opacity-0 overflow-hidden' : 'py-2 opacity-100'
-      }`}>
-        <div className="max-w-[1400px] mx-auto flex justify-between items-center">
-          <div className="flex items-center gap-3 sm:gap-6">
-            <a href="tel:+4580123456" className="flex items-center gap-1.5 hover:text-white transition-colors">
-              <Phone className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#5E6B4F]" />
-              <span className="font-mono">+45 80 12 34 56</span>
-            </a>
-            <span className="hidden sm:inline text-white/20">|</span>
-            <span className="hidden md:inline text-white/70">Fjord Valley, Denmark</span>
-          </div>
-
-          <div className="flex items-center gap-3 sm:gap-4">
-            {/* Member Portal Button */}
-            <button
-              onClick={onLoginClick}
-              className="flex items-center gap-1.5 text-[10px] sm:text-[11px] hover:text-[#9C7A50] transition-colors"
-            >
-              {userSession?.isLoggedIn ? (
-                <>
-                  <Crown className="w-3 h-3 text-[#9C7A50]" />
-                  <span className="font-semibold text-white truncate max-w-[120px]">
-                    {userSession.name}
-                  </span>
-                </>
-              ) : (
-                <>
-                  <User className="w-3 h-3 text-[#9C7A50]" />
-                  <span>Member Desk / Sign In</span>
-                </>
-              )}
-            </button>
-
-            <span className="text-white/20">|</span>
-
-            <div className="flex items-center gap-0.5 sm:gap-1 bg-white/10 rounded-full px-1.5 sm:px-2 py-0.5 text-[10px] sm:text-[11px]">
-              <Globe className="w-3 h-3 text-[#9C7A50]" />
-              <button
-                onClick={() => setActiveLang('EN')}
-                className={`px-1 py-0.2 rounded transition-colors ${activeLang === 'EN' ? 'bg-[#5E6B4F] text-white font-medium' : 'hover:text-white'}`}
-              >
-                EN
-              </button>
-              <button
-                onClick={() => setActiveLang('DE')}
-                className={`px-1 py-0.2 rounded transition-colors ${activeLang === 'DE' ? 'bg-[#5E6B4F] text-white font-medium' : 'hover:text-white'}`}
-              >
-                DE
-              </button>
-            </div>
-            
-            <button
-              onClick={() => scrollToSection('contact')}
-              className="text-[10px] sm:text-[11px] tracking-wider uppercase underline underline-offset-4 hover:text-[#9C7A50] transition-colors"
-            >
-              Contact
-            </button>
-          </div>
-        </div>
-      </div>
-
       {/* Main Nav Row */}
       <div className={`transition-all duration-300 ${
         isScrolled
